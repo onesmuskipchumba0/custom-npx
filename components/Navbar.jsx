@@ -10,7 +10,7 @@ function Navbar() {
           <span className="text-xl font-bold dark:text-gray-300">Custom NPX</span>
         </div>
         <div className="flex items-center space-x-4 mr-3">
-          <a href="#" className="flex items-center px-3 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-500 transition">
+          <a href="/" className="flex items-center px-3 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-500 transition">
             <FaHome className="mr-1" />
             Home
           </a>
@@ -18,7 +18,7 @@ function Navbar() {
             <FaInfoCircle className="mr-1" />
             About
           </a>
-          <a href="#" className="flex items-center px-3 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-500 transition">
+          <a href="contacts" className="flex items-center px-3 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-500 transition">
             <FaEnvelope className="mr-1" />
             Contact
           </a>
