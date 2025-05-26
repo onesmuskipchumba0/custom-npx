@@ -31,6 +31,7 @@ const templates = [
 ];
 
 export default function Home() {
+    // Checkboxes default to true
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTemplate, setSelectedTemplate] = useState<any>(null);
     const [projectName, setProjectName] = useState("");
@@ -45,8 +46,8 @@ export default function Home() {
     const closeModal = () => {
         setIsModalOpen(false);
         setProjectName("");
-        setInitGit(false);
-        setOpenVSCode(false);
+        setInitGit(true);
+        setOpenVSCode(true);
         setSelectedTemplate(null);
     };
 
@@ -101,7 +102,7 @@ export default function Home() {
 
             {isModalOpen && (
                 <>
-                    {/* Background overlay to reduce opacity */}
+                    {/* Background overlay */}
                     <div className="fixed inset-0 bg-black opacity-40 z-40 pointer-events-none"></div>
                     <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
                         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-lg w-full p-6 pointer-events-auto relative">
@@ -116,7 +117,6 @@ export default function Home() {
                                     &times;
                                 </button>
                             </div>
-                            {/* Selected template preview */}
                             {selectedTemplate && (
                                 <div className="flex items-center space-x-4 mb-6 p-4 bg-gray-50 dark:bg-gray-600 rounded">
                                     <div className="p-3 rounded-full bg-blue-100">
