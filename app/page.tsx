@@ -8,38 +8,78 @@ const templates = [
         name: "Next.js",
         description: "Build server-side rendered apps with ease.",
         icon: SiNextdotjs,
-        link: "#",
     },
     {
         name: "Vite",
         description: "Start fast with modern tooling and lightning builds.",
         icon: SiVite,
-        link: "#",
     },
     {
         name: "React",
         description: "Create interactive UIs with React.",
         icon: SiReact,
-        link: "#",
     },
     {
         name: "React Native",
         description: "Build mobile apps with React Native.",
         icon: FaMobileAlt,
-        link: "#",
     },
 ];
 
+const templateVariants: { [key: string]: any[] } = {
+    "Next.js": [
+        {
+            name: "Next.js (TypeScript)",
+            description: "Next.js project configured with TypeScript.",
+            icon: SiNextdotjs,
+        },
+        {
+            name: "Next.js (JavaScript)",
+            description: "Next.js project configured with JavaScript.",
+            icon: SiNextdotjs,
+        },
+    ],
+    Vite: [
+        {
+            name: "Vite (React)",
+            description: "Vite project configured for React.",
+            icon: SiVite,
+        },
+        {
+            name: "Vite (Vue)",
+            description: "Vite project configured for Vue.",
+            icon: SiVite,
+        },
+    ],
+    React: [
+        {
+            name: "React",
+            description: "Create interactive UIs with React.",
+            icon: SiReact,
+        },
+    ],
+    "React Native": [
+        {
+            name: "React Native",
+            description: "Build mobile apps with React Native.",
+            icon: FaMobileAlt,
+        },
+    ],
+};
+
 export default function Home() {
-    // Checkboxes default to true
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTemplate, setSelectedTemplate] = useState<any>(null);
+    const [selectedVariant, setSelectedVariant] = useState<any>(null);
     const [projectName, setProjectName] = useState("");
     const [initGit, setInitGit] = useState(true);
     const [openVSCode, setOpenVSCode] = useState(true);
 
     const openModal = (template: any) => {
         setSelectedTemplate(template);
+        // Set the default variant from the mapping
+        const variants = templateVariants[template.name] || [template];
+        setSelectedVariant(variants[0]);
         setIsModalOpen(true);
     };
 
@@ -49,12 +89,13 @@ export default function Home() {
         setInitGit(true);
         setOpenVSCode(true);
         setSelectedTemplate(null);
+        setSelectedVariant(null);
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log("Project Name:", projectName);
-        console.log("Template:", selectedTemplate?.name);
+        console.log("Template Variant:", selectedVariant?.name);
         console.log("Initialize Git:", initGit);
         console.log("Open in VS Code:", openVSCode);
         closeModal();
@@ -117,17 +158,17 @@ export default function Home() {
                                     &times;
                                 </button>
                             </div>
-                            {selectedTemplate && (
+                            {selectedVariant && (
                                 <div className="flex items-center space-x-4 mb-6 p-4 bg-gray-50 dark:bg-gray-600 rounded">
                                     <div className="p-3 rounded-full bg-blue-100">
-                                        <selectedTemplate.icon size={36} className="text-blue-500" />
+                                        <selectedVariant.icon size={36} className="text-blue-500" />
                                     </div>
                                     <div>
                                         <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
-                                            {selectedTemplate.name}
+                                            {selectedVariant.name}
                                         </h3>
                                         <p className="text-gray-600 dark:text-gray-300 text-sm">
-                                            {selectedTemplate.description}
+                                            {selectedVariant.description}
                                         </p>
                                     </div>
                                 </div>
@@ -151,17 +192,20 @@ export default function Home() {
                                         Available Templates
                                     </label>
                                     <select
-                                        value={selectedTemplate?.name}
+                                        value={selectedVariant?.name}
                                         onChange={(e) =>
-                                            setSelectedTemplate(
-                                                templates.find((t) => t.name === e.target.value)
+                                            setSelectedVariant(
+                                                (templateVariants[selectedTemplate.name] || [selectedTemplate]).find(
+                                                    (t) => t.name === e.target.value
+                                                )
                                             )
                                         }
                                         className="w-full px-4 py-2 border rounded text-gray-700 dark:text-gray-300 focus:outline-none focus:border-blue-500 transition"
                                     >
-                                        {templates.map((template) => (
-                                            <option key={template.name} value={template.name}>
-                                                {template.name}
+                                        {(templateVariants[selectedTemplate?.name] ||
+                                            [selectedTemplate]).map((variant) => (
+                                            <option className="bg-gray-700" key={variant.name} value={variant.name}>
+                                                {variant.name}
                                             </option>
                                         ))}
                                     </select>
