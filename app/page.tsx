@@ -100,102 +100,106 @@ export default function Home() {
             </div>
 
             {isModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-lg w-full p-6">
-                        <div className="flex justify-between items-center border-b pb-3 mb-4">
-                            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
-                                {selectedTemplate?.name} Setup
-                            </h2>
-                            <button
-                                onClick={closeModal}
-                                className="text-gray-600 dark:text-gray-300 hover:text-blue-500 transition text-2xl leading-none"
-                            >
-                                &times;
-                            </button>
-                        </div>
-                        {/* Selected template preview */}
-                        {selectedTemplate && (
-                            <div className="flex items-center space-x-4 mb-6 p-4 bg-gray-50 dark:bg-gray-600 rounded">
-                                <div className="p-3 rounded-full bg-blue-100">
-                                    <selectedTemplate.icon size={36} className="text-blue-500" />
+                <>
+                    {/* Background overlay to reduce opacity */}
+                    <div className="fixed inset-0 bg-black opacity-40 z-40 pointer-events-none"></div>
+                    <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
+                        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-lg w-full p-6 pointer-events-auto relative">
+                            <div className="flex justify-between items-center border-b pb-3 mb-4">
+                                <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+                                    {selectedTemplate?.name} Setup
+                                </h2>
+                                <button
+                                    onClick={closeModal}
+                                    className="text-gray-600 dark:text-gray-300 hover:text-blue-500 transition text-2xl leading-none"
+                                >
+                                    &times;
+                                </button>
+                            </div>
+                            {/* Selected template preview */}
+                            {selectedTemplate && (
+                                <div className="flex items-center space-x-4 mb-6 p-4 bg-gray-50 dark:bg-gray-600 rounded">
+                                    <div className="p-3 rounded-full bg-blue-100">
+                                        <selectedTemplate.icon size={36} className="text-blue-500" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
+                                            {selectedTemplate.name}
+                                        </h3>
+                                        <p className="text-gray-600 dark:text-gray-300 text-sm">
+                                            {selectedTemplate.description}
+                                        </p>
+                                    </div>
+                                </div>
+                            )}
+                            <form onSubmit={handleSubmit} className="space-y-5">
+                                <div>
+                                    <label className="block text-gray-700 dark:text-gray-300 mb-1">
+                                        Project Name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={projectName}
+                                        onChange={(e) => setProjectName(e.target.value)}
+                                        placeholder="Enter project name"
+                                        className="w-full px-4 py-2 text-gray-700 dark:text-gray-300 border rounded focus:outline-none focus:border-blue-500 transition"
+                                        required
+                                    />
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
-                                        {selectedTemplate.name}
-                                    </h3>
-                                    <p className="text-gray-600 dark:text-gray-300 text-sm">
-                                        {selectedTemplate.description}
-                                    </p>
+                                    <label className="block text-gray-700 dark:text-gray-300 mb-1">
+                                        Available Templates
+                                    </label>
+                                    <select
+                                        value={selectedTemplate?.name}
+                                        onChange={(e) =>
+                                            setSelectedTemplate(
+                                                templates.find((t) => t.name === e.target.value)
+                                            )
+                                        }
+                                        className="w-full px-4 py-2 border rounded text-gray-700 dark:text-gray-300 focus:outline-none focus:border-blue-500 transition"
+                                    >
+                                        {templates.map((template) => (
+                                            <option key={template.name} value={template.name}>
+                                                {template.name}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
-                            </div>
-                        )}
-                        <form onSubmit={handleSubmit} className="space-y-5">
-                            <div>
-                                <label className="block text-gray-700 dark:text-gray-300 mb-1">
-                                    Project Name
-                                </label>
-                                <input
-                                    type="text"
-                                    value={projectName}
-                                    onChange={(e) => setProjectName(e.target.value)}
-                                    placeholder="Enter project name"
-                                    className="w-full px-4 py-2 text-gray-700 dark:text-gray-300 border rounded focus:outline-none focus:border-blue-500 transition"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-gray-700 dark:text-gray-300 mb-1">
-                                    Available Templates
-                                </label>
-                                <select
-                                    value={selectedTemplate?.name}
-                                    onChange={(e) =>
-                                        setSelectedTemplate(
-                                            templates.find((t) => t.name === e.target.value)
-                                        )
-                                    }
-                                    className="w-full px-4 py-2 border rounded text-gray-700 dark:text-gray-300 focus:outline-none focus:border-blue-500 transition"
+                                <div className="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        checked={initGit}
+                                        onChange={(e) => setInitGit(e.target.checked)}
+                                        id="initGit"
+                                        className="mr-2 h-4 w-4"
+                                    />
+                                    <label htmlFor="initGit" className="text-gray-700 dark:text-gray-300">
+                                        Initialize Git repository
+                                    </label>
+                                </div>
+                                <div className="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        checked={openVSCode}
+                                        onChange={(e) => setOpenVSCode(e.target.checked)}
+                                        id="openVSCode"
+                                        className="mr-2 h-4 w-4"
+                                    />
+                                    <label htmlFor="openVSCode" className="text-gray-700 dark:text-gray-300">
+                                        Open in VS Code after creation
+                                    </label>
+                                </div>
+                                <button
+                                    type="submit"
+                                    className="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-2 rounded font-semibold"
                                 >
-                                    {templates.map((template) => (
-                                        <option key={template.name} value={template.name}>
-                                            {template.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    checked={initGit}
-                                    onChange={(e) => setInitGit(e.target.checked)}
-                                    id="initGit"
-                                    className="mr-2 h-4 w-4"
-                                />
-                                <label htmlFor="initGit" className="text-gray-700 dark:text-gray-300">
-                                    Initialize Git repository
-                                </label>
-                            </div>
-                            <div className="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    checked={openVSCode}
-                                    onChange={(e) => setOpenVSCode(e.target.checked)}
-                                    id="openVSCode"
-                                    className="mr-2 h-4 w-4"
-                                />
-                                <label htmlFor="openVSCode" className="text-gray-700 dark:text-gray-300">
-                                    Open in VS Code after creation
-                                </label>
-                            </div>
-                            <button
-                                type="submit"
-                                className="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-2 rounded font-semibold"
-                            >
-                                Create Project
-                            </button>
-                        </form>
+                                    Create Project
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                </>
             )}
         </>
     );
