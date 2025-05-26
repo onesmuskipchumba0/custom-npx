@@ -32,7 +32,6 @@ const templates = [
 export default function Home() {
 	return (
 		<>
-			<Navbar />
 			<div className="min-h-screen bg-gray-50 dark:bg-gray-900">
 				<header className="py-16 text-center">
 					<h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">
@@ -43,14 +42,14 @@ export default function Home() {
 					</p>
 				</header>
 				<main className="container mx-auto px-4 py-8">
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ml-12 mr-12">
 						{templates.map((template) => {
 							const Icon = template.icon;
 							return (
 								<a
 									key={template.name}
 									href={template.link}
-									className="block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 dark:border-gray-700 p-6"
+									className="block bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 p-6 transform transition duration-300 hover:scale-105 hover:shadow-xl hover:border-blue-400"
 								>
 									<div className="flex justify-center mb-4">
 										<Icon size={64} className="dark:invert" />

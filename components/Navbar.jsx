@@ -14,7 +14,7 @@ function Navbar() {
             <FaHome className="mr-1" />
             Home
           </a>
-          <a href="#" className="flex items-center px-3 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-500 transition">
+          <a href="about" className="flex items-center px-3 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-500 transition">
             <FaInfoCircle className="mr-1" />
             About
           </a>
