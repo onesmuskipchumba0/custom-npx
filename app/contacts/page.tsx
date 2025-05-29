@@ -51,7 +51,7 @@ export default function Contacts() {
                         <div className="w-full">
                             <label
                                 htmlFor="user_name"
-                                className="block text-gray-700 dark:text-gray-300 mb-2 flex items-center"
+                                className="text-gray-700 dark:text-gray-300 mb-2 flex items-center"
                             >
                                 <FaUser className="mr-2" /> Name
                             </label>
@@ -67,7 +67,7 @@ export default function Contacts() {
                         <div className="w-full mt-4 sm:mt-0">
                             <label
                                 htmlFor="user_email"
-                                className="block text-gray-700 dark:text-gray-300 mb-2 flex items-center"
+                                className="text-gray-700 dark:text-gray-300 mb-2 flex items-center"
                             >
                                 <FaEnvelope className="mr-2" /> Email
                             </label>
@@ -84,7 +84,7 @@ export default function Contacts() {
                     <div>
                         <label
                             htmlFor="subject"
-                            className="block text-gray-700 dark:text-gray-300 mb-2 flex items-center"
+                            className="text-gray-700 dark:text-gray-300 mb-2 flex items-center"
                         >
                             <FaRegPaperPlane className="mr-2" /> Subject
                         </label>
