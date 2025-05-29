@@ -21,7 +21,7 @@ A command-line interface (CLI) tool to quickly scaffold projects with various fr
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/create-custom.git
+git clone https://github.com/onesmuskipchumba0/custom-npx.git
 
 # Navigate to the project directory
 cd create-custom
