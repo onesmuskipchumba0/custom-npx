@@ -29,9 +29,8 @@ cd create-custom
 # Install dependencies
 npm install
 
-# Link the package globally
+# Install the package globally
 npm install -g
-npm link
 ```
 
 ## Usage
@@ -95,12 +94,19 @@ create-custom/
 
 ## Screenshots
 
+### Comandline setup
+![Terminal setup](screenshots/cli-screenshot.png)
+
 ### Home Page
 ![Home Page](screenshots/1.png)
 
 ### Project Creation
 ![Project Creation Modal](screenshots/2.png)
 
+### VS code setup
+![VS code screenshot](screenshots/vscode.png)
+
+---
 ## License
 
 MIT
