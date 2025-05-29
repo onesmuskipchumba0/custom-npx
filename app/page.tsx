@@ -8,25 +8,57 @@ const templates = [
         name: "Next.js",
         description: "Build server-side rendered apps with ease.",
         icon: SiNextdotjs,
-        link: "#",
+        variants: [
+            {
+                name: "Next.js (JavaScript)",
+                description: "Next.js project with JavaScript configuration",
+                templatePath: "next.js/javascript/next.js-javascript",
+            },
+            {
+                name: "Next.js (TypeScript)",
+                description: "Next.js project with TypeScript configuration",
+                templatePath: "next.js/typescript/next.js-typescript",
+            },
+        ],
     },
     {
         name: "Vite",
         description: "Start fast with modern tooling and lightning builds.",
         icon: SiVite,
-        link: "#",
-    },
-    {
-        name: "React",
-        description: "Create interactive UIs with React.",
-        icon: SiReact,
-        link: "#",
+        variants: [
+            {
+                name: "Vite + React (JavaScript)",
+                description: "Vite project with React and JavaScript",
+                templatePath: "vite/react-js",
+            },
+            {
+                name: "Vite + React (TypeScript)",
+                description: "Vite project with React and TypeScript",
+                templatePath: "vite/react-ts",
+            },
+            {
+                name: "Vite + Vue (JavaScript)",
+                description: "Vite project with Vue.js and JavaScript",
+                templatePath: "vite/vue-js",
+            },
+            {
+                name: "Vite + Vue (TypeScript)",
+                description: "Vite project with Vue.js and TypeScript",
+                templatePath: "vite/vue-ts",
+            },
+        ],
     },
     {
         name: "React Native",
         description: "Build mobile apps with React Native.",
         icon: FaMobileAlt,
-        link: "#",
+        variants: [
+            {
+                name: "React Native",
+                description: "Universal React Native project with Expo",
+                templatePath: "react-native-template",
+            },
+        ],
     },
 ];
 

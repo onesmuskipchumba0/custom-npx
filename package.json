@@ -1,18 +1,36 @@
 {
-  "name": "custom-npx",
-  "version": "0.1.0",
-  "private": true,
+  "name": "create-custom",
+  "version": "1.0.0",
+  "description": "CLI tool to scaffold various framework projects",
+  "bin": {
+    "create-custom": "./bin/cli.js"
+  },
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "concurrently \"next dev --turbopack\" \"cd api && npm run dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+  },
+  "keywords": [
+    "cli",
+    "nextjs",
+    "vite",
+    "react-native",
+    "scaffold",
+    "template"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/onesmuskipchumba0/create-custom.git"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "express": "^5.1.0",
     "fs-extra": "^11.3.0",
     "next": "15.3.2",
+    "open": "^8.4.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0"
@@ -25,6 +43,10 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }
