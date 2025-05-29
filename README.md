@@ -39,7 +39,7 @@ npm link
 Once installed, you can create new projects from anywhere in your terminal:
 
 ```bash
-create-custom
+npx create-custom
 ```
 
 This will:

@@ -35,13 +35,14 @@ const templatesPath = path.join(__dirname, '..', 'templates');
 app.post('/api/create-project', async (req, res) => {
     try {
         const { projectName, templatePath, initGit, openVSCode }: ProjectConfig = req.body;
+        const targetDir = process.env.TARGET_DIR || process.cwd();
 
         // Validate project name
         if (!projectName.match(/^[a-zA-Z0-9-_]+$/)) {
             throw new Error('Invalid project name');
         }
 
-        const projectPath = path.join(__dirname,"..", projectName);
+        const projectPath = path.join(targetDir, projectName);
 
         // Check if directory already exists
         if (await fs.pathExists(projectPath)) {
