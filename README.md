@@ -30,6 +30,7 @@ cd create-custom
 npm install
 
 # Link the package globally
+npm install -g
 npm link
 ```
 
@@ -73,9 +74,7 @@ create-custom/
 │   ├── vite/
 │   │   ├── vue-ts/
 │   │   └── vue-js/
-│   └── react-native/
-│       ├── typescript/
-│       └── javascript/
+│   └── react-native-template
 └── package.json
 ```
 
