@@ -38,7 +38,7 @@ function About() {
             essential configurations and dependencies pre-configured.
           </p>
           <div className='bg-blue-600 text-white inline-block px-6 py-3 rounded-full font-medium'>
-            Try it now: <code className='ml-2 bg-blue-700 px-3 py-1 rounded'>create-custom</code>
+            Try it now: <code className='ml-2 bg-blue-700 px-3 py-1 rounded'>npx create-custom</code>
           </div>
         </div>
       </header>
