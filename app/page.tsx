@@ -23,7 +23,6 @@ const templates = [
                 templatePath: "next.js/typescript/next.js-typescript",
             },
         ],
->>>>>>> backend
     },
     {
         name: "Vite",
@@ -52,7 +51,6 @@ const templates = [
                 templatePath: "vite/vue-ts",
             },
         ],
->>>>>>> backend
     },
     {
         name: "React Native",
@@ -76,7 +74,6 @@ export default function Home() {
     const [projectName, setProjectName] = useState("");
     const [initGit, setInitGit] = useState(true);
     const [openVSCode, setOpenVSCode] = useState(true);
-    const [selectedVariant, setSelectedVariant] = useState<any>(null);
     const [isCreating, setIsCreating] = useState(false);
     const [status, setStatus] = useState<string>("");
 
