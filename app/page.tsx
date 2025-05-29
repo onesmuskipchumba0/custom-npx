@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { SiNextdotjs, SiVite, SiReact } from "react-icons/si";
 import { FaMobileAlt } from "react-icons/fa";
+import { FiLoader } from "react-icons/fi";
 
 const templates = [
     {
@@ -56,7 +57,7 @@ const templates = [
             {
                 name: "React Native",
                 description: "Universal React Native project with Expo",
-                templatePath: "react-native-template",
+                templatePath: "react-native-template", // Updated to match the actual folder name
             },
         ],
     },
@@ -69,9 +70,13 @@ export default function Home() {
     const [projectName, setProjectName] = useState("");
     const [initGit, setInitGit] = useState(true);
     const [openVSCode, setOpenVSCode] = useState(true);
+    const [selectedVariant, setSelectedVariant] = useState<any>(null); // New state for selected variant
+    const [isCreating, setIsCreating] = useState(false);
+    const [status, setStatus] = useState<string>("");
 
     const openModal = (template: any) => {
         setSelectedTemplate(template);
+        setSelectedVariant(template.variants[0]); // Set first variant as default
         setIsModalOpen(true);
     };
 
@@ -81,15 +86,58 @@ export default function Home() {
         setInitGit(true);
         setOpenVSCode(true);
         setSelectedTemplate(null);
+        setSelectedVariant(null);
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Project Name:", projectName);
-        console.log("Template:", selectedTemplate?.name);
-        console.log("Initialize Git:", initGit);
-        console.log("Open in VS Code:", openVSCode);
-        closeModal();
+        setIsCreating(true);
+        setStatus("Creating project...");
+
+        try {
+            // Validate project name
+            if (!projectName.match(/^[a-zA-Z0-9-_]+$/)) {
+                throw new Error("Project name can only contain letters, numbers, hyphens and underscores");
+            }
+
+            setStatus("Setting up project structure...");
+            const response = await fetch('http://localhost:3001/api/create-project', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    projectName,
+                    templatePath: selectedVariant?.templatePath,
+                    initGit,
+                    openVSCode,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => null);
+                throw new Error(errorData?.message || 'Failed to create project');
+            }
+
+            const data = await response.json();
+            
+            if (data.success) {
+                setStatus("Project created successfully!");
+                setTimeout(() => {
+                    closeModal();
+                }, 1500);
+            } else {
+                throw new Error(data.message || "Failed to create project");
+            }
+        } catch (error: any) {
+            console.error('Error:', error);
+            setStatus(`Error: ${error.message}`);
+            setTimeout(() => {
+                setStatus("");
+            }, 3000);
+        } finally {
+            setIsCreating(false);
+        }
     };
 
     return (
@@ -104,7 +152,7 @@ export default function Home() {
                     </p>
                 </header>
                 <main className="container mx-auto px-4 py-8">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="flex flex-col md:flex-row lg:flex-row gap-8 justify-center items-center w-full">
                         {templates.map((template) => {
                             const Icon = template.icon;
                             return (
@@ -198,6 +246,27 @@ export default function Home() {
                                         ))}
                                     </select>
                                 </div>
+                                <div>
+                                    <label className="block text-gray-700 dark:text-gray-300 mb-1">
+                                        Available Variants
+                                    </label>
+                                    <select
+                                        value={selectedVariant?.name}
+                                        onChange={(e) => {
+                                            const variant = selectedTemplate.variants.find(
+                                                (v: any) => v.name === e.target.value
+                                            );
+                                            setSelectedVariant(variant);
+                                        }}
+                                        className="w-full px-4 py-2 border rounded text-gray-700 dark:text-gray-300 focus:outline-none focus:border-blue-500 transition"
+                                    >
+                                        {selectedTemplate?.variants.map((variant: any) => (
+                                            <option key={variant.name} value={variant.name}>
+                                                {variant.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
                                 <div className="flex items-center">
                                     <input
                                         type="checkbox"
@@ -222,12 +291,30 @@ export default function Home() {
                                         Open in VS Code after creation
                                     </label>
                                 </div>
-                                <button
-                                    type="submit"
-                                    className="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-2 rounded font-semibold"
-                                >
-                                    Create Project
-                                </button>
+                                <div className="relative">
+                                    <button
+                                        type="submit"
+                                        disabled={isCreating}
+                                        className={`w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 transition text-white py-2 rounded font-semibold ${
+                                            isCreating ? 'opacity-70 cursor-not-allowed' : ''
+                                        }`}
+                                    >
+                                        {isCreating && <FiLoader className="animate-spin" />}
+                                        {isCreating ? 'Creating Project...' : 'Create Project'}
+                                    </button>
+
+                                    {status && (
+                                        <div className={`mt-3 text-center text-sm ${
+                                            status.includes('Error') 
+                                                ? 'text-red-500' 
+                                                : status.includes('successfully') 
+                                                    ? 'text-green-500' 
+                                                    : 'text-blue-500'
+                                        }`}>
+                                            {status}
+                                        </div>
+                                    )}
+                                </div>
                             </form>
                         </div>
                     </div>
