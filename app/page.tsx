@@ -95,13 +95,22 @@ export default function Home() {
         setStatus("Creating project...");
 
         try {
+            // First check if the API is available
+            const apiUrl = 'http://localhost:3001';
+            
+            try {
+                await fetch(`${apiUrl}/health`);
+            } catch (error) {
+                throw new Error('API server is not running. Please start the API server first.');
+            }
+
             // Validate project name
             if (!projectName.match(/^[a-zA-Z0-9-_]+$/)) {
                 throw new Error("Project name can only contain letters, numbers, hyphens and underscores");
             }
 
             setStatus("Setting up project structure...");
-            const response = await fetch('http://localhost:3001/api/create-project', {
+            const response = await fetch(`${apiUrl}/api/create-project`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

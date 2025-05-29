@@ -8,8 +8,20 @@ import cors from 'cors';
 const execAsync = promisify(exec);
 
 const app = express();
-app.use(cors());  // Enable CORS
+
+// Configure CORS properly
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['POST'],
+  credentials: true
+}));
+
 app.use(express.json());
+
+// Add a health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
 
 interface ProjectConfig {
     projectName: string;
@@ -29,7 +41,7 @@ app.post('/api/create-project', async (req, res) => {
             throw new Error('Invalid project name');
         }
 
-        const projectPath = path.join(process.cwd(), projectName);
+        const projectPath = path.join(__dirname,"..", projectName);
 
         // Check if directory already exists
         if (await fs.pathExists(projectPath)) {
@@ -72,5 +84,5 @@ app.post('/api/create-project', async (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
