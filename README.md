@@ -94,13 +94,21 @@ create-custom/
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+## Screenshots
+
+### Home Page
+![Home Page](screenshots/1.png)
+
+### Project Creation
+![Project Creation Modal](screenshots/2.png)
+
 ## License
 
 MIT
 
 ## Author
 
-Your Name
+Onesmuskipchumba0
 
 ## Acknowledgments
 
