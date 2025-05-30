@@ -6,7 +6,7 @@
     "create-custom": "./bin/cli.js"
   },
   "scripts": {
-    "dev": "concurrently \"next dev --turbopack\" \"cd api && npm run dev\"",
+    "dev": "concurrently \"next dev\" \"cd api && npm run dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
