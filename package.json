@@ -9,7 +9,8 @@
     "dev": "concurrently \"next dev --turbopack\" \"cd api && npm run dev\"",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dependencies": "node scripts/install-template-deps.js"
   },
   "keywords": [
     "cli",
